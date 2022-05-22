@@ -1,15 +1,61 @@
+import { signOut } from "firebase/auth";
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
+import auth from "../../firebase.init";
+import Loading from "./Loading";
 
 const Navbar = () => {
+  const [user, loading, error] = useAuthState(auth);
+
+  if (loading) return <Loading></Loading>;
+
+  if (error) console.log(error.message);
+
+  const logout = () => {
+    signOut(auth);
+    localStorage.removeItem("accessToken");
+  };
   const menuItem = (
     <>
-      <li><Link to='/'>Home</Link></li>
-      <li><Link to='/appointment'>Appointment</Link></li>
-      <li><Link to='/reviews'>Reviews</Link></li>
-      <li><Link to='/contact'>Contact us</Link></li>
-      <li><Link to='/about'>Abput</Link></li>
-      <li><Link to='/login'>Login</Link></li>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/dashboard">Dashboard</Link>
+      </li>
+      <li>
+        <Link to="/practice">Practice</Link>
+      </li>
+      <li>
+        <Link to="/appointment">Appointment</Link>
+      </li>
+      <li>
+        <Link to="/reviews">Reviews</Link>
+      </li>
+      <li>
+        <Link to="/contact">Contact us</Link>
+      </li>
+      <li>
+        <Link to="/about">About</Link>
+      </li>
+
+      <li>
+        {user ? (
+          <>
+            <Link to="">{user?.email}</Link>
+            <button onClick={logout}>
+              <Link to="/">Sign Out</Link>
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+          </>
+        )}
+      </li>
+      <li></li>
     </>
   );
   return (
@@ -39,11 +85,35 @@ const Navbar = () => {
             {menuItem}
           </ul>
         </div>
-        <Link className="btn btn-ghost normal-case text-xl" to='/login'>Doctors Portal</Link>
-        
+        <Link className="btn btn-ghost normal-case text-xl" to="/">
+          Doctors Portal
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{menuItem}</ul>
+      </div>
+
+      <div className="navbar-end">
+        <label
+          tabIndex="1"
+          htmlFor="dashboard-sidebar"
+          className="btn btn-ghost lg:hidden"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h8m-8 6h16"
+            />
+          </svg>
+        </label>
       </div>
     </div>
   );
