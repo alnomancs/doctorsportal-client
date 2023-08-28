@@ -19,6 +19,8 @@ const UserRow = ({ user, index, refetch }) => {
         if (data.modifiedCount > 0) {
           refetch();
           toast.success("Succesfully made an admin");
+        } else {
+          toast.error("Somethis error, Please try again");
         }
       });
   };

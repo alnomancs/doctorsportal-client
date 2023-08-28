@@ -31,6 +31,7 @@ const MyAppointment = () => {
           setAppointments(data);
         });
     }
+    // eslint-disable-next-line
   }, [user]);
 
   if (loading) return <Loading></Loading>;
@@ -38,7 +39,7 @@ const MyAppointment = () => {
 
   return (
     <div className="overflow-auto">
-      <h2>my appointment {appointments?.length}</h2>
+      <h2 className="text-2xl ">my appointment {appointments?.length}</h2>
 
       <div className="overflow-x-auto">
         <table className="table relative w-full">

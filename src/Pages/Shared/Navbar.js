@@ -43,7 +43,7 @@ const Navbar = () => {
       <li>
         {user ? (
           <>
-            <Link to="">{user?.email}</Link>
+            <Link to="">{(user?.email).split('@')[0]}</Link>
             <button onClick={logout}>
               <Link to="/">Sign Out</Link>
             </button>

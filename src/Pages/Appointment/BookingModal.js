@@ -25,7 +25,7 @@ const BookingModal = ({ treatment, setTreatment, date, refetch }) => {
     fetch("http://localhost:5001/booking", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "content-Type": "application/json",
       },
       body: JSON.stringify(booking), //send data to server
     })
@@ -34,6 +34,8 @@ const BookingModal = ({ treatment, setTreatment, date, refetch }) => {
         //to close the modal
         if (data.success) {
           toast(`Appointment is set, ${formattedDate} at ${slot}`);
+          refetch();
+          setTreatment(null);
         } else {
           toast.error(
             `You already have an appointment, ${data.booking?.date} at ${data.booking?.slot}`

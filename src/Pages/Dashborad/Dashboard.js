@@ -12,7 +12,7 @@ const Dashboard = () => {
   return (
     <div className="drawer drawer-mobile">
       <input id="dashboard-sidebar" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col items-center justify-center">
+      <div className="drawer-content ">
         <h2 className="text-5xl text-purple-600">Dashboard</h2>
         <Outlet />
       </div>
@@ -26,12 +26,20 @@ const Dashboard = () => {
             <Link to="/dashboard/myreview">My Review</Link>
           </li>
           <li>
-            <Link to="/dashboard/myhistory">My Review</Link>
+            <Link to="/dashboard/myhistory">My History</Link>
           </li>
           {admin && (
-            <li>
-              <Link to="/dashboard/allusers">All User</Link>
-            </li>
+            <>
+              <li>
+                <Link to="/dashboard/allusers">All User</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/addDoctor">Add Doctor</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/manageDoctor">Manage Doctor</Link>
+              </li>
+            </>
           )}
         </ul>
       </div>
